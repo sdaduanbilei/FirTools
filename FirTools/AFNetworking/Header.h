@@ -8,6 +8,6 @@
 
 #ifndef FirTools_Header_h
 #define FirTools_Header_h
-
+#import "AFNetworking.h"
 
 #endif

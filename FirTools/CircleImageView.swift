@@ -9,5 +9,8 @@
 import Cocoa
 
 class CircleImageView: NSImage {
-
+    
+    override func awakeFromNib() {
+        
+    }
 }

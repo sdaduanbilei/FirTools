@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 scorpio. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class AsyncImageUtil{
     var cache  = NSCache();
@@ -18,12 +18,12 @@ class AsyncImageUtil{
         return Static.instance
     }
     
-    func imageForUrl(urlString: String, completionHandler:(image: UIImage?, url: String) -> ()) {
+    func imageForUrl(urlString: String, completionHandler:(image: NSImage?, url: String) -> ()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {()in
             var data: NSData? = self.cache.objectForKey(urlString) as? NSData
             
             if let goodData = data {
-                let image = UIImage(data: goodData)
+                let image = NSImage(data: goodData)
                 dispatch_async(dispatch_get_main_queue(), {() in
                     completionHandler(image: image, url: urlString)
                 })
@@ -37,7 +37,7 @@ class AsyncImageUtil{
                 }
                 
                 if data != nil {
-                    let image = UIImage(data: data)
+                    let image = NSImage(data: data)
                     self.cache.setObject(data, forKey: urlString)
                     dispatch_async(dispatch_get_main_queue(), {() in
                         completionHandler(image: image, url: urlString)
@@ -51,12 +51,14 @@ class AsyncImageUtil{
         
     }
     
-    class func CircleImageView(imageview:UIImageView){
-        let whiterColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1);
-        imageview.layer.borderWidth = 2 ;
-        imageview.layer.borderColor = whiterColor.CGColor ;
-        imageview.layer.cornerRadius = CGRectGetHeight(imageview.bounds)/2
-        imageview.clipsToBounds = true ;
+    class func CircleImageView(imageview:NSImageView){
+        let whiterColor = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1);
+        imageview.wantsLayer = true 
+        imageview.layer?.borderWidth =  2
+        imageview.layer?.borderColor = whiterColor.CGColor ;
+        imageview.layer?.cornerRadius = CGRectGetHeight(imageview.bounds)/2
+        imageview.layer?.masksToBounds = true
+        
     }
     
 }

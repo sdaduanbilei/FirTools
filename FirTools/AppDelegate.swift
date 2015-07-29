@@ -16,12 +16,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let popover = NSPopover()
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2)
 
+    var eventMonitor:EventMonitor!
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        // Insert code here to initialize your application
+        // Insert code here to  your application
+        // init httpclient
         
+        MyHttpClient.init_url("http://douban.fm/j/mine/playlist/")
         // show whit icon
-//        let icon = NSImage(named: "ic_cool")
-//        icon?.setTemplate(true)
+        let icon = NSImage(named: "ic_cool")
+        icon?.setTemplate(true)
 //        self.statusItem.image = icon
 //        self.statusItem.menu =  statusMenu
         
@@ -33,6 +37,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         popover.contentViewController = MasterViewController(nibName:"MasterViewController",bundle:nil)
         
+        // 监听鼠标事件  在 popover 外面点击就主动关闭 popover
+        eventMonitor = EventMonitor(mask: .LeftMouseDownMask | .RightMouseDownMask  ) { [unowned self] event in
+            if self.popover.shown {
+                self.closePopover(event)
+            }
+        }
+        
+//        eventMonitor = EventMonitor(mask: .LeftMouseDraggedMask) { [unowned self] event in
+//            if self.popover.shown {
+//                
+//            }else{
+//                self.showPopover(event)
+//            }
+//        }
+        eventMonitor?.start()
     }
     
     // 显示 popover

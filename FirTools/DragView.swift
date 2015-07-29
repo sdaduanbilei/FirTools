@@ -8,6 +8,34 @@
 
 import Cocoa
 
-class DragView: NSVieW {
-
+class DragView: NSView ,NSDraggingDestination{
+    
+    var droppedFilePath:String!
+    
+    
+    override func awakeFromNib() {
+        registerForDraggedTypes([NSFilenamesPboardType])
+    }
+    
+    override func draggingEntered(sender: NSDraggingInfo) -> NSDragOperation {
+         print("entered")
+        return .Copy
+    }
+    
+    override func draggingUpdated(sender: NSDraggingInfo) -> NSDragOperation {
+         print("updateed")
+        return .Copy
+    }
+    
+    override func performDragOperation(sender: NSDraggingInfo) -> Bool {
+         if let board = sender.draggingPasteboard().propertyListForType("NSFilenamesPboardType") as? NSArray {
+            if let imagePath = board[0] as? String {
+                // THIS IS WERE YOU GET THE PATH FOR THE DROPPED FILE
+                self.droppedFilePath = imagePath
+                return true
+            }
+        }
+        return false
+    }
+    
 }

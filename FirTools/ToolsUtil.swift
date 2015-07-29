@@ -7,16 +7,11 @@
 //
 
 import Foundation
-import UIKit
 
 class ToolsUtil {
     
     class func msgBox(msg:String){
-        let alert = UIAlertView();
-        alert.title = "提醒"
-        alert.message = msg
-        alert.addButtonWithTitle("确定")
-        alert.show() 
+       
     }
 }
 
