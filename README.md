@@ -70,6 +70,9 @@ Create a New Project or File ⟶ New ⟶ Project - Choose Application ⟶ Cocoa 
             showPopover(sender)
         }
     }
+    
+    注意 EventMonitor.swift 当用户点击popover 窗口外的时候主动管理 popover
+    
 
 	
 	
@@ -87,5 +90,13 @@ Create a New Project or File ⟶ New ⟶ Project - Choose Application ⟶ Cocoa 
 
 ![](images/pic_6.png)
 
+
+## 7月29 号 
+
+今天随便写了点 加入了 豆瓣FM 的歌曲播放功能  使用了 AFNetworking ，随便写了个 图片相关的工具类。
+
+![](images/pic_7.png)
+
+收工了，今天听下歌，趁老板不在！
 
 	
